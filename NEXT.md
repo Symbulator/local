@@ -1,5 +1,29 @@
 # Next build — accepted but not yet done
 
+## #289 — the tool answers' labels in lower case, like every other label — **done 6 Sep 2026, live on the offline pair at cache v139; the server awaits Roberto's pull**
+
+Roberto, 6 Sep 2026, reading an equivalent-resistance result: *"the label
+says 'Equivalent resistance' ... the other labels use lower case ... make
+all labels be lower case, unless they refer to a proper name like
+Thevenin or Norton."*
+
+The engine's element and port labels were already lower case (*current
+through*, *voltage drop*, *open-circuit input impedance*); the one table
+that was not is `_TOOL_LABELS` in `symbulator_ui.py`, the th/er tool's
+five named answers. Three change -- *equivalent resistance*, *equivalent
+impedance*, *maximum deliverable power* -- and *Thevenin voltage* and
+*Norton current* keep their capitals for the names. A sweep of every
+`srv.` word in `en.json` found no other capital.
+
+The engine's words are the dictionary keys, so the three moved to new
+keys and the twelve translations moved with them, first letter lowered
+where the language has case; **German keeps its capitals**, since
+*Ersatzwiderstand* is a noun. `i18n check` clean. `symbulator_ui.py` is
+shared into the offline build by `build_local.py`; shipped at cache
+**v139** (ZIP 31,793,970 bytes, hash-verified; build `2026-09-05 06:35
+UTC`), both offline sites. The server's own `symbulator_ui.py` and
+dictionaries change with the next pull.
+
 ## #286 — Lesson 3's four `is1` entries say `is`, as the book now does — **done 6 Sep 2026, live on the offline pair at cache v138; the server awaits Roberto's pull**
 
 From the docs session, 6 Sep 2026: four entries in
