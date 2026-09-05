@@ -1,5 +1,14 @@
 # Next build — accepted but not yet done
 
+## #312 — the app's half of one sun-and-moon in the split view — **done 7 Sep 2026, live on the offline pair at cache v151; the server awaits Roberto's pull**
+
+Written up in `Documentation/NEXT_DOCS.md` #312, whose shell half is
+live. Here: `html.embedded .theme-toggle { display: none }` beside #311's
+rule, the click handler refactored into `setDarkTheme()`, and a
+`message` listener that applies `{from:'symbulator-split', type:'theme',
+dark}` only when framed and only from `learn.symbulator.com` or the
+page's own origin. Never framed, the offline builds are untouched by it.
+
 ## #311 — no wordmark band inside the split view — **done 7 Sep 2026, live on the offline pair at cache v150; the server current since Roberto's pull the same night**
 
 Roberto, 7 Sep 2026: *"in split view, you do not show the banner of the
