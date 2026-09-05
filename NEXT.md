@@ -1,5 +1,223 @@
 # Next build — accepted but not yet done
 
+## #278 — thirteen colour themes, each with light and dark, and the scorpion on a transparent ground — **done 6 Sep 2026, live on the four cPanel sites at cache v135; the server awaits Roberto's pull**
+
+Roberto's brief, 6 Sep 2026: *"I would like to allow the user to select
+a theme. Each theme would have a dark and a light versions, switchable
+using the toggle. The default theme would be the light and dark navy
+blue currently in place."* He listed seven alternatives, asked for three
+more (burgundy, forest, pastels), accepted a fourth proposed here (high
+contrast), named all twelve, and then added Walnut (the palette of Leonardo's
+notebooks), thirteen. Settled over a rendered sheet of
+twenty-six miniatures of the app, one per theme and mode; the sheet and
+the script that generates it are kept in
+`C:\Users\perez\Claude Symbulator\Notes\themes_2026-09-06\` — edit
+`make_themes.py`'s table, run it, and the sheet is regenerated. **The
+palettes below are the spec**; the sheet is what Roberto approved.
+
+### The decisions
+
+- **The sun-and-moon toggle keeps its job.** It switches light and dark
+  *within* the chosen theme. A second control picks the theme.
+- **The control is a round swatch beside the toggle in the ribbon**, the
+  toggle's size and ring, whose dot is the theme's band colour and numeral
+  colour split diagonally. Behind it, a native `<select>` built the way
+  the language menu is (#201): thirteen entries are too many for a custom
+  menu and a phone renders a select as a proper picker.
+- **Stored as `symbulator-palette` in `localStorage`**, beside
+  `symbulator-theme` and `symbulator-lang`, applied by the head script
+  before first paint like dark mode is. A root attribute `data-palette`;
+  Navy is the absence of the attribute, so today's page is byte-for-byte
+  the default.
+- **The banner keeps its theme colour in both modes**, as it does now.
+  `banner.css` is **not edited**: it already reads `--navy`, `--navy-2`
+  and `--sky` with fallbacks, so a theme paints the bands by setting three
+  variables on the root. The guarded copies stay identical. Two banner
+  colours are literals in `banner.css` today and stay so for Navy but need
+  variables with fallbacks for the others: the subtitle `#b7c3d6` and the
+  ribbon link `#dbe6f5`. That is a two-line change to the shared file
+  (`var(--banner-sub, #b7c3d6)`, `var(--banner-link, #dbe6f5)`),
+  propagated to all three consumers as the banner section of the root
+  `CLAUDE.md` describes.
+- **The results panel takes the theme's tint.** Today `.lcd` and
+  `.elcard` are hard-wired blue in both modes. Each theme supplies seven
+  panel values.
+- **Both pages**: `index.html` and `eqsheet.html` share the banner and
+  the store, so the Numerical Solver follows the theme too.
+- **Names are translated, Firefly included** (Roberto: *"I'd suggest
+  translating the word 'firefly' unless it doesn't exist in the
+  language"* — luciérnaga, luciole, Glühwürmchen, vagalume, and the
+  English word where a language has none). Thirteen names plus the picker's
+  label in all thirteen dictionaries.
+- **Firefly** was retuned at Roberto's ask from a Matrix-green terminal to
+  *a firefly in a dark forest*: night-wood bands, the insect's yellow-green
+  glow for the numeral, keyline and readout, a moss-lit light side.
+- **The scorpion loses its navy ground** (Roberto, 6 Sep 2026: *"convert the
+  navy background into an alpha channel, so that only the white drawing
+  remains, and the background appears as the colour of the banner"*).
+  `Notes/themes_2026-09-06/logo_alpha.png` is the converted file: each
+  pixel unmixed as a blend of white and the corner navy, white kept and the
+  blend kept as alpha, so the anti-aliased edges survive; recomposited on
+  navy it reproduces the original to within one level per channel. **It
+  replaces every copy of the logo in the build**: `repos/server/static/logo.png`
+  (which `build_local.py` carries into the offline pages), the landing's and
+  learn's copies in the docs tree, and the icons if they carry the same
+  ground. On Navy nothing changes to the eye.
+- **Walnut**: the palette of Leonardo's notebooks. Parchment page,
+  iron-gall-ink bands, red-chalk accent; the one theme whose light ground is
+  a colour rather than an off-white. Named Leonardo for an hour.
+- **The menu is in chromatic order** (Roberto, 6 Sep 2026: *"sort the
+  themes chromatically"*): Navy first as the default, then round the wheel
+  — Violet, Pastels, Warm pink, Burgundy, Brick, Walnut, Earth, Gray and
+  gold, Firefly, Forest, Turquoise — and High contrast, the achromatic one,
+  last. The tables below and the sheet are in that order.
+- **Gray and gold** is the one theme with a gradient: a brushed sheen on
+  the top band (`#4a5059` to the band colour over 70%), and the ribbon
+  the reverse. **High contrast** drops the panel's gradient and both
+  inset glows and the card shadow.
+- **Pastels bends the lockup on purpose**: its bands are a dusty lavender,
+  the only bands that are not dark, just deep enough for white text; and
+  its Solve button is the only one with dark lettering. Roberto saw it and
+  kept it.
+
+### The palettes
+
+Twenty-two values each. Banner (five): top band, ribbon, numeral and
+keyline, subtitle, ribbon link. Panel (seven): gradient top, ground,
+border, row line, readout ink, dim text, element name. Page (ten, per
+mode): ground, card, ink, muted, accent, accent ink, rule, field, field
+border, button hover. The app's other variables (notices, warnings, code
+and callout backgrounds, placeholder, focus ring) derive from these at
+build time and are not specified here.
+
+| Theme | Banner | Panel |
+|---|---|---|
+| Navy (default) | `#203864 #2a4576 #8ec7f5 #b7c3d6 #dbe6f5` | `#102338 #0d1e30 #081525 #173352 #8ecbff #4a7098 #6fb8f0` |
+| Violet | `#363a80 #42478f #b9bdff #bfc1e6 #e0e1f8` | `#1b1d44 #14163a #0a0b22 #2b2e60 #c6c5ff #6b6ca8 #a3a1ff` |
+| Pastels | `#7f74ad #8d83b8 #ffe9a8 #ece7f7 #f6f3fc` | `#47406c #3e3860 #2e2a48 #565080 #c8f5dc #9a93bf #f7c7d9` |
+| Warm pink | `#5c1a45 #6c2654 #f3a6d3 #d9b3cb #f3dbe9` | `#2b0f22 #21091a #12050e #43203a #ffb6de #8a5a78 #f08cc4` |
+| Burgundy | `#4f1424 #5f1d30 #f0a9b8 #d4aab4 #f3dae0` | `#2a0c14 #200810 #100408 #44182a #ffb8c6 #8c5868 #f28aa0` |
+| Brick | `#6a2c20 #7b392c #f4b79e #d8b3a6 #f5e1da` | `#2d1611 #23100c #120705 #4a2820 #ffbfa6 #8f5c4c #f39678` |
+| Walnut | `#3a2718 #4a3323 #e6cf9a #cdb992 #eadcbd` | `#33251a #281c13 #140d08 #4a3826 #efd9a6 #8a7455 #d9a56b` |
+| Earth | `#4a3a2a #594736 #dcbb87 #cdbca4 #ecdfcc` | `#2a2016 #201810 #100b07 #43352a #eacd9e #8a7250 #d7b078` |
+| Gray and gold | `#3b4048 #484e57 #d9aa4c #b8bec6 #e2e6ea` | `#23282e #1a1e22 #0d0f11 #343a41 #f0c070 #7d7466 #d9aa4c` |
+| Firefly | `#0a1810 #122419 #e3f56b #8fb09a #d2e8c8` | `#0e2418 #081a10 #030d07 #1a3a26 #e8ff7a #4e7a56 #b9ec5c` |
+| Forest | `#1e3d2b #294a36 #a8d8a0 #b3c9b8 #dcebdf` | `#14301f #0f2418 #061209 #1f4430 #b8ecb8 #5a8a66 #8fd49a` |
+| Turquoise | `#0f4a58 #175a69 #7fe3d6 #a9d3cf #d6f1ec` | `#0b2f36 #08252b #041418 #164048 #8ef0e2 #3f8a84 #5fd6c8` |
+| High contrast | `#000000 #111111 #ffd400 #dddddd #ffffff` | `#000000 #000000 #ffffff #444444 #ffffff #bbbbbb #ffd400` |
+
+| Theme | Light page | Dark page |
+|---|---|---|
+| Navy | `#f4f6fa #ffffff #1c2330 #5b6472 #2f5fa8 #ffffff #e2e5ea #fbfcfd #cfd6df #1f4a86` | `#12161d #1b212c #e4e8ee #97a3b6 #5b96e0 #0d1420 #2b3341 #11161e #38424f #4a86d0` |
+| Violet | `#f5f5fc #ffffff #1f1f38 #5f6180 #5652c8 #ffffff #e0e1f0 #fbfbff #cbcde6 #4340a8` | `#13142a #1c1d38 #e7e7f6 #9c9ec4 #9d9bff #12132a #2d2f52 #0f1024 #3b3d66 #b4b2ff` |
+| Pastels | `#f8f6fb #ffffff #3a3550 #7a7494 #e79ab0 #3a3550 #e8e3f2 #fcfbfe #d8d1e8 #f0b0c2` | `#221f30 #2c2840 #ece8f5 #aaa3c4 #f2b8c8 #221f30 #3f3a56 #1d1a2a #4c4666 #f8cbd8` |
+| Warm pink | `#fbf5f8 #ffffff #2a1a24 #6f5866 #b02a72 #ffffff #ecdde5 #fdfafc #dcc6d3 #8f1f5b` | `#1a1015 #24161f #f2e6ed #ad93a3 #ea6fb4 #1a1015 #3a2833 #160d12 #4a3341 #f08cc4` |
+| Burgundy | `#faf4f5 #ffffff #2c1a1f #6f5860 #8c1d38 #ffffff #ebdde0 #fdfafb #dcc6cb #6e1329` | `#1a1114 #251a1e #f2e6e9 #ad949b #e3708c #1a1114 #3c2a30 #150e11 #4c373e #ee92a8` |
+| Brick | `#faf4f1 #fffdfc #2e1c17 #715a53 #a53f2b #ffffff #ecdcd6 #fdfaf8 #dcc6bf #86311f` | `#1b1210 #261915 #f1e4df #b0958c #e27a5e #1b1210 #3d2a25 #160e0c #4e3730 #ee9a82` |
+| Walnut | `#ece0c4 #f4ead3 #3a2a1c #7a6549 #9c4a2c #ffffff #d8c7a3 #f7efdc #c9b58c #7d3a20` | `#1e160f #2a1f16 #e8dcc0 #a89474 #d18a5a #1e160f #3f3225 #17110c #4d3e2d #e0a070` |
+| Earth | `#f8f4ee #fffdf9 #2d2419 #6f6152 #8a5a2b #ffffff #e6dccf #fdfaf5 #d5c8b6 #6e4620` | `#1a1512 #241d18 #ede4d8 #ab9c8a #d3a262 #1a1512 #3a3028 #15100d #4a3e33 #e2b87d` |
+| Gray and gold | `#f2f3f4 #ffffff #1e2125 #5f666e #b3781e #ffffff #dde0e3 #fafbfb #c8cdd3 #8f5e14` | `#141618 #1d2023 #e6e8ea #9aa1a8 #e0a83c #141618 #2d3135 #101214 #3d4247 #f0bd5e` |
+| Firefly | `#f1f5ee #fbfdf8 #16261b #52685a #4f7f21 #ffffff #d5e1d3 #f7faf4 #bdd0bf #3d6418` | `#070f0a #0d1a12 #d9ecd2 #7fa088 #d6f253 #0a1a10 #1c3324 #050b07 #23402c #e8ff7a` |
+| Forest | `#f3f7f3 #fffefc #172519 #566b5a #2c6e42 #ffffff #dbe6dc #fbfdfb #c6d8c9 #215532` | `#0f1712 #16221a #e4eee5 #92ab97 #6cc488 #0f1712 #26362b #0c130e #33473a #8ad8a1` |
+| Turquoise | `#f4f8f5 #fffefb #14302e #56706c #0f8a82 #ffffff #dbe8e3 #fbfdfb #c4d9d3 #0b6d67` | `#0e1b1c #142628 #e3f0ec #8fb2ac #45d0c2 #0a1a1a #23393a #0b1617 #2f4a4b #6ee0d4` |
+| High contrast | `#ffffff #ffffff #000000 #333333 #0000c8 #ffffff #000000 #ffffff #000000 #000080` | `#000000 #000000 #ffffff #dddddd #ffd400 #000000 #ffffff #000000 #ffffff #ffe866` |
+
+### How it was built
+
+Everything the list below planned, and these facts from doing it:
+
+- **`repos/server/tools/palettes.py` is the table.** Thirteen rows of
+  twenty-two values; everything else the two stylesheets need (the soft
+  rule, the code and note tints, the placeholder, the focus ring, the
+  scrollbar, the panel's glow) is derived there, the same way for every
+  theme, and written into both templates between `BEGIN/END palettes`
+  markers. `write` regenerates, `check` fails on drift, and
+  `build_local.py` runs the check on every build. A new theme is a row.
+  Navy has no block: it is the templates' own `:root` and dark block,
+  and `data-palette` is absent for it, so the default page is the page
+  before this item but for the dark hover fix and the new variables.
+- **Fourteen literals became variables** in `index.html` (the panel's
+  gradient top, border, row line, name colour, scrollbar and glow; the
+  button and link hover; the focus line; the disabled button; the Solve
+  button's shadow as an rgb triple; the language face's colour), and the
+  two toggle icons take `currentColor` from `--sky` instead of a fixed
+  `#8ec7f5`. The Solver page's mode buttons lost two literals the same
+  way. The `<select>` arrow's grey stroke was left alone: it reads on
+  every ground.
+- **`banner.css` changed by two variables with fallbacks**, `--banner-sub`
+  and `--banner-link`, and its header comment says why. Propagated to
+  both templates (`check_banner` passes) and to the landing copy
+  (`stamp_assets.py` re-stamped it, `build.py --check` clean).
+- **The picker is the language menu's construction**: a native `<select>`
+  stretched invisibly over a face, here a dot split between `--navy` and
+  `--sky`, so it follows the theme with no script. Option labels are
+  `t()` calls, so `i18n.py tag` collected them and `check` demanded
+  the twelve translations; Firefly is luciérnaga, luciole, Glühwürmchen,
+  vaga-lume, lampiro, 萤火虫, ホタル, 반딧불이, kunang-kunang, जुगनू,
+  জোনাকি, світлячок. `syncPaletteMenu()` runs from `refreshDynamic()`
+  in the app and from the language handler in the Solver, and
+  `build_local.py`'s Solver anchor (the language handler it extends
+  with the boot bar) had to learn the new line -- the build said so.
+- **Measured live on the Flask server before deploying**, both pages: 13
+  options, the choice stored and applied, `--navy` and `--bg` following
+  it, the toggle switching dark within the theme, the icon colour
+  following `--sky`, the Solver arriving in the app's theme and mode.
+  The ribbon stays one row: 59px at 1280 wide, the swatch and toggle
+  40px each; at 375 the swatch and toggle are 34px, the row 50px, App ·
+  Docs on the left, Clear · EN and the pair on the right, nothing
+  clipped. Spanish names read back from the live menu. The offline
+  build measured the same on a static server, both pages.
+- **The scorpion**: `logo.png` replaced in five places -- the server's
+  static copy, `repos/local`, the `--assets` source folder, and the
+  landing's and learn's copies -- all one file, 40,586 bytes. The icons
+  keep their navy ground: a home-screen icon wants one.
+- **Deployed**: install and the ZIP at cache **v135** (ZIP 31,794,040
+  bytes, hash-verified; build `2026-09-05 03:56 UTC`), the landing page
+  (four files) and learn (`assets/logo.png` and `assets/banner.css`
+  only -- no `build.py --web` ran, on purpose: the docs tree had three
+  chapter sources with someone else's uncommitted edits, and a rebuild
+  would have shipped them; the two assets were copied straight into
+  `build/web/assets/` instead). **`symbulator.pythonanywhere.com` needs
+  its pull and reload** -- the template and the dictionaries changed, so
+  this is a real pull, no `pip`.
+- **Not done, deliberately**: X has not been merged (`git fetch v9 &&
+  git merge v9/main` in its three repos, keeping `branding.py`, then a
+  rebuild -- the root `CLAUDE.md` describes it), and the mockup sheet
+  stays in `Notes/`, not in a repo.
+
+### What the build touched (the plan, kept for the record)
+
+- `templates/index.html` and `templates/eqsheet.html`: the token blocks
+  become one `:root` (Navy light), one `html[data-theme="dark"]` (Navy
+  dark), and then a `html[data-palette="…"]` and
+  `html[data-palette="…"][data-theme="dark"]` pair per theme. Fifteen
+  colours are literal hex in the template today and become variables
+  first: the panel gradient top `#102338`, border `#081525`, row line
+  `#173352`, result name `#6fb8f0`, scrollbar thumb `#25517a`, the
+  button hover `#1f4a86`, link hover `#1f4a86`, focus outline `#2f6fc0`,
+  disabled button `#9fb0c8`, the Solve button's shadow `rgba(32,56,100)`,
+  the select arrow's stroke in its data URI (two copies), the
+  `a.toplinks:hover` `#b8ddff`, and the toggle's `fill="#8ec7f5"` in the
+  markup, which should be `var(--sky)`.
+- **A bug to fix on the way**: `button:hover` is `#1f4a86` in dark mode
+  too, the light theme's dark blue on a `#5b96e0` button. Dark Navy gets
+  `#4a86d0`.
+- The head script: read `symbulator-palette`, set `data-palette`.
+- The ribbon: the swatch and its select, after the language menu and
+  before the toggle; `applyLang` must reach the option labels the way
+  #240 taught it to reach the entry picker's.
+- Thirteen dictionaries: thirteen names and the picker's label.
+- `build_local.py` regenerates both offline pages; **cache bump**; the
+  three-command chain and both offline deploys; the server pull is
+  Roberto's. No solver release.
+- `banner.css`: the two-line variable change above, then the propagation
+  and both checks (`build_local.py`'s `check_banner()` and the docs
+  `build.py --check`). The landing page and learn are unaffected in
+  appearance — Navy's literals are the fallbacks.
+- `tools/check_hidden_guards.py` and the heading audit of #248 both run
+  again: a new control in the ribbon at 375px is exactly what #245–#248
+  measured.
+
 ## #255 - every built-in entry that can be plotted carries its plot - **done 3 Sep 2026, live on all five sites**
 
 > **Numbered #251 when it was written, and renumbered on 4 Sep 2026.** A
