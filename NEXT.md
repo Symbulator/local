@@ -1,5 +1,59 @@
 # Next build — accepted but not yet done
 
+## #280 — answers set at full size: display-style maths in the results — **done 6 Sep 2026, live on the offline pair at cache v136; the server awaits Roberto's pull**
+
+Roberto, 6 Sep 2026: *"when there are mathematical expressions that have
+nominator and denominator, the font is shrunk to make it fit in the fix
+height. But there's no need for that. I'd rather enlarge the space ...
+making the spaces taller, but also making the blocks longer, fitting one
+per line instead of two per line when needed."*
+
+**Measured first.** Nothing in the stylesheet scales a result, and no
+height is fixed: a `.result-row` and an `.elcard` are both sized by their
+content, and the cards are `flex: 0 0 auto` with a 250px minimum, so a
+wide card already widens and wraps to a line of its own. What shrinks a
+fraction is TeX itself: every result was typeset as inline maths,
+`\( ... \)`, and inline (text-style) TeX sets a numerator and a
+denominator at script size so the fraction fits one text line. That is
+the "shrunk font", and it is the only shrink there is.
+
+**The fix is one word in four places**: `\displaystyle` at the head of
+every result the app typesets -- the Results card and the element cards
+(one helper), the Equations card, Evaluate, and the Mini-Tools. The plain
+text fallback is untouched, and the Numerical Solver typesets nothing.
+
+Measured on the Flask server with a symbolic divider (`e1,1,0,vs`,
+`r1,1,2,ra`, `r2,2,0,rb`, `r3,2,0,rc`), same page width, before and after:
+
+| | before | after |
+|---|---|---|
+| node 2's fraction, rendered | 143 × 24 px | 199 × 40 px |
+| its row | 52 px | 66 px |
+| the widest element card | 250 × 279 px | 261 × 322 px |
+| cards per line at 798 px | 3 then 1 | 3 then 1 (each wider) |
+
+So the rows are taller and the cards wider, and nothing had to be told to
+wrap: the layout was already the reader's, only the type was not. On a
+phone (≤ 520 px) an `.el-item` keeps its horizontal scroll for a fraction
+wider than the screen, as before.
+
+Shipped with #279 at cache **v136** (ZIP 31,794,299 bytes, hash-verified; build
+`2026-09-05 04:22 UTC`), both offline sites the same evening; the server
+pull is Roberto's, and it is a real pull (the template changed).
+
+## #279 — Expert Mode's three labels say *equation(s)*, *unknown(s)*, *condition(s)* — **done 6 Sep 2026, live on the offline pair at cache v136; the server awaits Roberto's pull**
+
+Roberto, 6 Sep 2026: *"In the interface, in the Expert Mode, add
+parentheses around the s in 'Add equation(s)', 'Add unknown(s)' and 'Add
+condition(s)'."* Then: *"apply this only to the English one."*
+
+Three words in `templates/index.html`. The English text is the key, so
+`i18n.py tag` gave the three labels new keys (`add-equation-s-one.e3a4`,
+`add-unknown-s-one.7f55`, `add-condition-s-one.7e29`) and the twelve
+translations moved under them unchanged -- *Agregar ecuaciones*, *Ajouter
+des équations* and the rest keep their plain plurals, per the ruling.
+`i18n check` clean. Shipped with #280 at cache **v136**.
+
 ## #278 — thirteen colour themes, each with light and dark, and the scorpion on a transparent ground — **done 6 Sep 2026, live on the four cPanel sites at cache v135; the server awaits Roberto's pull**
 
 Roberto's brief, 6 Sep 2026: *"I would like to allow the user to select
