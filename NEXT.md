@@ -1,5 +1,70 @@
 # Next build — accepted but not yet done
 
+## #285 — the app's footer, two lines, no copyright sign — **done 6 Sep 2026, live on the offline pair at cache v137; the server awaits Roberto's pull**
+
+Roberto, 6 Sep 2026, after ruling that every repository is open source:
+*"Let's remove the copyright, then. Let's use this footer for the app in
+all its forms"* --
+
+    Symbulator by Roberto Perez-Franco (1999–2026) · Release 2026-09-05 04:22 UTC
+    symbulator.com · Free and open-source under the MIT licence · Runs on Python+SymPy
+
+His words exactly. Gone with it: the © sign, the Facebook, GitHub and
+PyPI links, *results are symbolic*, and the version numeral -- the foot
+names no version now, only the release stamp. `symbulator.com` stays a
+link. The first line and the link are `notranslate`; the licence phrase
+is the one translation unit, re-keyed by `i18n.py tag`
+(`free-and-open-source.d231`) and translated in all twelve languages.
+
+**The stamp moved, and two readers with it.** `build_local.py`'s
+`STAMP_RE` and `app.py`'s `_BUILD_RE` both keyed on *Symbulator 9
+version*; both now key on *Release*, and both were proved to find the
+stamp exactly once in the new template before anything else was run.
+`/healthz` therefore keeps reporting the build. `branding.py`'s note on
+the footer (the ruling of 4 Sep 2026 that a fork's foot reads the same)
+was reworded to the new line; the ruling stands.
+
+**A third reader turned up on the deploy.** `Deploy/deploy_targets.ini`
+verifies the install page by the marker *Symbulator 9 version*, and the
+first deploy uploaded every file correctly and then reported FAIL on that
+line -- the right outcome, since the marker names the footer. It now
+reads *Symbulator by Roberto Perez-Franco*, and the re-run verified
+clean. Shipped with #282 at cache **v137** (ZIP 31,794,098 bytes,
+hash-verified; build `2026-09-05 05:40 UTC`).
+
+## #283 — every repository carries the MIT licence — **done 6 Sep 2026, nothing to deploy**
+
+Roberto asked whether *Symbulator © 1999–2026 Roberto Perez-Franco* still
+made sense now that the code is open source, and ruled: *"All repositories
+are open source, for everything."* The line stays -- MIT works by
+copyright and asks that the notice be kept -- and the footer's next line
+already says *Free and open-source software under the MIT licence*, so
+the page needed nothing. What was missing was the file: `server` and the
+docs repository were public with no `LICENSE`, which reads as all rights
+reserved. Both now carry the same MIT text as `solver` and `local`,
+byte-identical, committed and pushed. Not a build, not a deploy.
+
+## #282 — two theme names: *Gray & gold*, *Contrast* — **done 6 Sep 2026, live on the offline pair at cache v137; the server awaits Roberto's pull**
+
+Roberto, 6 Sep 2026: *"Change 'Gray and gold' to 'Gray & gold', and 'High
+contrast' to 'Contrast'."* The table in `tools/palettes.py`, the two
+templates' picker calls and the dictionaries. The twelve *Contrast*
+translations shortened to match (*Contraste*, *Kontrast*, *대비* ...);
+*Gray & gold*'s keep each language's own conjunction. `palettes check`
+and `i18n check` clean. The keys (`graygold`, `highcontrast`) and the
+stored values are unchanged, so a reader's saved choice survives.
+
+Asked the same day whether the theme could be *"a setting that is
+remembered across sessions, like the mode"*: it already is -- stored as
+`symbulator-palette` beside `symbulator-theme` and applied by the head
+script before first paint (#278). Proved on the live install site by
+choosing Burgundy, reloading, and reading the root attribute and the band
+colour back: `burgundy`, `#4f1424`. If it does not persist somewhere, that
+is the server before its pull (no picker there yet), or a browser that
+blocks storage -- the mode would fail there the same way.
+
+Shipped with #285 at cache **v137**.
+
 ## #280 — answers set at full size: display-style maths in the results — **done 6 Sep 2026, live on the offline pair at cache v136; the server awaits Roberto's pull**
 
 Roberto, 6 Sep 2026: *"when there are mathematical expressions that have

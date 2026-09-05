@@ -110,7 +110,7 @@ SCIPY_WHEEL = "scipy-1.18.0-cp314-cp314-pyemscripten_2026_0_wasm32.whl"
 # point of it: it is what tells you which build a site is actually
 # running, when three of them are deployed separately and any one of
 # them can silently be a version behind.
-STAMP_RE = re.compile(r"(Symbulator 9 version )\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC")
+STAMP_RE = re.compile(r"(Release )\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC")
 
 
 def stamp_template() -> str:
