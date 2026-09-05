@@ -1,6 +1,6 @@
 # Next build — accepted but not yet done
 
-## #309 — the theme swatch hidden on a phone — **done 7 Sep 2026, live on the offline pair at cache v148; the server awaits Roberto's pull**
+## #309 — the theme swatch hidden on a phone — **done 7 Sep 2026, live on the offline pair at cache v149; the server awaits Roberto's pull**
 
 Roberto, 7 Sep 2026, on #308's cost: *"Feel free to hide the theme button
 in mobile."* One rule below 480px on `.palette-wrap`, the colour-theme
@@ -9,9 +9,14 @@ matters on a phone, and the theme still applies from the stored
 preference or a wider screen. Its width is what the nav needed: measured
 at 375px on the dev server, both nav links are back in twelve of the
 thirteen languages -- *App+Doku*, *Appli+Docs*, *Aplikasi+Dok*, ローカル+文書,
-অ্যাপ+ডক্স … -- and Ukrainian alone still shows *Застосунок* without *Док*,
-its word for the app being the widest in the book. The ribbon is one row
-(53px) in every language.
+অ্যাপ+ডক্স … -- and Ukrainian was the one left showing *Застосунок* without *Док*.
+Roberto asked how a Ukrainian reader would get back to the docs, and the
+answer was that they could not: the ribbon's one-line rule had clipped
+the link and the footer names no documentation. Fixed by wording, at
+cache v149: the Ukrainian short labels became *Додаток* (app), *Скласти*
+(collapse) and *Стерти* (clear), which is the 17px the nav was short by,
+measured -- both links show in all thirteen languages at 375px. The
+ribbon is one row (53px) in every language.
 
 ## #308 — *Collapse all cards* in the ribbon — **done 7 Sep 2026, live on the offline pair at cache v148; the server awaits Roberto's pull**
 
