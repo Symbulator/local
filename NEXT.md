@@ -1,6 +1,6 @@
 # Next build — accepted but not yet done
 
-## #300 — the Load-equivalent button moves under the Thévenin answers — **done 7 Sep 2026, live on the offline pair at cache v144; the server awaits Roberto's pull**
+## #300 — the Load-equivalent button moves under the Thévenin answers — **done 7 Sep 2026, live on the offline pair at cache v144; the server current since Roberto's pull of 7 Sep 2026**
 
 Roberto, 7 Sep 2026: *"Move the 'Load circuit equivalent?' button to
 appear under the results of the Thevenin equivalent at the end of the
@@ -20,7 +20,7 @@ run with the tick on; hidden when the tick comes off (the rows drop to
 four) and back when it returns; the button dead after one edit, with a
 click showing no warning; the box gone after Clear all.
 
-## #299 — the Load-equivalent button follows the solve's freshness — **done 7 Sep 2026, live on the offline pair at cache v143; the server awaits Roberto's pull**
+## #299 — the Load-equivalent button follows the solve's freshness — **done 7 Sep 2026, live on the offline pair at cache v143; the server current since Roberto's pull of 7 Sep 2026**
 
 Roberto, 7 Sep 2026, on #292: *"the 'Load circuit equivalent?' should
 not be active until the Thevenin simulation has been run. Until then,
@@ -45,7 +45,7 @@ after unticking and re-ticking; disabled after one character typed into
 the description; enabled again after re-running; disabled on switching
 the equivalent to resistance.
 
-## #295 — three theme names: *Default*, *Warm Pink*, *Gray & Gold* — **done 7 Sep 2026, live on the offline pair at cache v141; the server awaits Roberto's pull**
+## #295 — three theme names: *Default*, *Warm Pink*, *Gray & Gold* — **done 7 Sep 2026, live on the offline pair at cache v141; the server current since Roberto's pull of 7 Sep 2026**
 
 Roberto, 7 Sep 2026, mid-train: *"In the theme list, please capitalise
 'Pink' and 'Gold', and change 'Navy' with 'Default'."* The names live in
@@ -65,7 +65,7 @@ word anyone reads.
 Shipped with #291/#292 at cache **v141** (v140 had gone out minutes
 earlier without it; ZIP 31,802,167 bytes, hash-verified on both sites).
 
-## #292 — the th tool's load features, ported at last from version 8 — **done 7 Sep 2026, live on the offline pair at cache v141; the server awaits Roberto's pull**
+## #292 — the th tool's load features, ported at last from version 8 — **done 7 Sep 2026, live on the offline pair at cache v141; the server current since Roberto's pull of 7 Sep 2026**
 
 Roberto, 7 Sep 2026: *"The features of the th() tool of Symbulator were
 not properly ported from v8 to v9."* Version 8's `th`, once it had the
@@ -208,7 +208,7 @@ placeholders; the twelve translations moved with them.
 Verified in the browser with nothing solved: `pr(100,220)` evaluates to
 275/4.
 
-## #289 — the tool answers' labels in lower case, like every other label — **done 6 Sep 2026, live on the offline pair at cache v139; the server awaits Roberto's pull**
+## #289 — the tool answers' labels in lower case, like every other label — **done 6 Sep 2026, live on the offline pair at cache v139; the server current since Roberto's pull of 7 Sep 2026**
 
 Roberto, 6 Sep 2026, reading an equivalent-resistance result: *"the label
 says 'Equivalent resistance' ... the other labels use lower case ... make
@@ -232,7 +232,7 @@ shared into the offline build by `build_local.py`; shipped at cache
 UTC`), both offline sites. The server's own `symbulator_ui.py` and
 dictionaries change with the next pull.
 
-## #286 — Lesson 3's four `is1` entries say `is`, as the book now does — **done 6 Sep 2026, live on the offline pair at cache v138; the server awaits Roberto's pull**
+## #286 — Lesson 3's four `is1` entries say `is`, as the book now does — **done 6 Sep 2026, live on the offline pair at cache v138; the server current since Roberto's pull of 7 Sep 2026**
 
 From the docs session, 6 Sep 2026: four entries in
 `repos/server/examples/Lesson_03.cir` used `is1` as the symbolic value of
@@ -254,7 +254,7 @@ cache **v138**, both offline sites, hash-verified. The server serves the
 examples from its own checkout, so the four entries reach
 `symbulator.pythonanywhere.com` with Roberto's next pull.
 
-## #285 — the app's footer, two lines, no copyright sign — **done 6 Sep 2026, live on the offline pair at cache v137; the server awaits Roberto's pull**
+## #285 — the app's footer, two lines, no copyright sign — **done 6 Sep 2026, live on the offline pair at cache v137; the server current since Roberto's pull of 7 Sep 2026**
 
 Roberto, 6 Sep 2026, after ruling that every repository is open source:
 *"Let's remove the copyright, then. Let's use this footer for the app in
