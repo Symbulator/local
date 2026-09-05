@@ -1,6 +1,19 @@
 # Next build — accepted but not yet done
 
-## #308 — *Collapse all cards* in the ribbon — **done 7 Sep 2026, live on the offline pair at cache v147; the server awaits Roberto's pull**
+## #309 — the theme swatch hidden on a phone — **done 7 Sep 2026, live on the offline pair at cache v148; the server awaits Roberto's pull**
+
+Roberto, 7 Sep 2026, on #308's cost: *"Feel free to hide the theme button
+in mobile."* One rule below 480px on `.palette-wrap`, the colour-theme
+swatch beside the sun and moon; the sun and moon stay, since dark mode
+matters on a phone, and the theme still applies from the stored
+preference or a wider screen. Its width is what the nav needed: measured
+at 375px on the dev server, both nav links are back in twelve of the
+thirteen languages -- *App+Doku*, *Appli+Docs*, *Aplikasi+Dok*, ローカル+文書,
+অ্যাপ+ডক্স … -- and Ukrainian alone still shows *Застосунок* without *Док*,
+its word for the app being the widest in the book. The ribbon is one row
+(53px) in every language.
+
+## #308 — *Collapse all cards* in the ribbon — **done 7 Sep 2026, live on the offline pair at cache v148; the server awaits Roberto's pull**
 
 Roberto, 7 Sep 2026: *"add a link, next to 'Clear all inputs', reading
 'Collapse all cards' (shortened to 'Collapse') that, when clicked,
@@ -25,9 +38,8 @@ the second link needed in six languages -- at 375px German, French,
 Portuguese, Indonesian, Japanese and Ukrainian now show *App* but not
 *Docs* (English, Spanish and the rest keep both). Measured by hiding the
 button and re-reading the nav: `Doku` comes back the moment it goes.
-Options if he wants the link back on a phone: hide *Collapse* below
-480px (the card headings still fold each card), or drop the dot beside
-it there and accept it for Ukrainian alone.
+Resolved the same night by #309, at Roberto's word, by hiding the theme
+swatch on a phone instead.
 
 ## #307 — the Walnut theme removed — **done 7 Sep 2026, live on the offline pair at cache v146; the server awaits Roberto's pull**
 
