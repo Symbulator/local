@@ -1,5 +1,27 @@
 # Next build — accepted but not yet done
 
+## #286 — Lesson 3's four `is1` entries say `is`, as the book now does — **done 6 Sep 2026, live on the offline pair at cache v138; the server awaits Roberto's pull**
+
+From the docs session, 6 Sep 2026: four entries in
+`repos/server/examples/Lesson_03.cir` used `is1` as the symbolic value of
+a current source where the chapter now prints `is` -- which the app
+accepts, since the Python-keyword guard bans an *element* named `s`, not
+a value symbol called `is`. Renamed in every field that carried it,
+word-bounded so nothing else moved: B11's Example 6.21 (the circuit line
+and `unknowns:`), TR5's Figure 4-4, Bo2's Example 1.11 (Symbolic), and
+TR5's Example 4.5 (Symbolic), whose `jd,b,a,β*is1` became `β*is`. Eight
+lines in the book; `tools/Lesson_03.expected.json` moved with it, six
+occurrences in three answers, since the chapter and the JSON move
+together.
+
+Verified: `verify_lesson.py Lesson_03 --quiet` -- 48 entries, 0 problems
+(the two "book names not found" entries, 6.22 and RM3's 9-12, are the
+standing ones and untouched); `check_example_plots.py Lesson_03` -- its
+one plot runs. `build_local.py` regenerated `repos/local/examples/`;
+cache **v138**, both offline sites, hash-verified. The server serves the
+examples from its own checkout, so the four entries reach
+`symbulator.pythonanywhere.com` with Roberto's next pull.
+
 ## #285 — the app's footer, two lines, no copyright sign — **done 6 Sep 2026, live on the offline pair at cache v137; the server awaits Roberto's pull**
 
 Roberto, 6 Sep 2026, after ruling that every repository is open source:
