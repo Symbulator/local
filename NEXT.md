@@ -1,5 +1,25 @@
 # Next build — accepted but not yet done
 
+## #300 — the Load-equivalent button moves under the Thévenin answers — **done 7 Sep 2026, live on the offline pair at cache v144; the server awaits Roberto's pull**
+
+Roberto, 7 Sep 2026: *"Move the 'Load circuit equivalent?' button to
+appear under the results of the Thevenin equivalent at the end of the
+card."* The button and its warning left the Analysis card -- the tick
+stays there, under the port nodes -- for a box at the foot of the Results
+card, after the answers. `syncLoadEquivBox()` shows the box when the tick
+is on and the answers on screen are a Thévenin run (`last`, not
+`lastSolve`: an edited input stales the solve without taking the answers
+off the screen, and the button should then go dead per #299 rather than
+vanish); `syncLoadEquivBtn()` still governs the button itself. Clear all
+hides both. The markup moved as a unit, so its four dictionary keys are
+unchanged; `i18n check` and the hidden-guard check clean.
+
+Verified on the dev server: the box is inside the Results card after the
+answers; hidden before a run; shown with the seven rows after a Thévenin
+run with the tick on; hidden when the tick comes off (the rows drop to
+four) and back when it returns; the button dead after one edit, with a
+click showing no warning; the box gone after Clear all.
+
 ## #299 — the Load-equivalent button follows the solve's freshness — **done 7 Sep 2026, live on the offline pair at cache v143; the server awaits Roberto's pull**
 
 Roberto, 7 Sep 2026, on #292: *"the 'Load circuit equivalent?' should
