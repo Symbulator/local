@@ -1,5 +1,26 @@
 # Next build — accepted but not yet done
 
+## #311 — no wordmark band inside the split view — **done 7 Sep 2026, live on the offline pair at cache v150; the server awaits Roberto's pull**
+
+Roberto, 7 Sep 2026: *"in split view, you do not show the banner of the
+documentation. That's great. Would it be possible to hide also the
+banner of the app in split?"* The app pane is another origin, so the
+shell cannot style it; the app detects being framed itself, the way the
+docs page does (#224, `window.self !== window.top`, never a flag a
+reload would lose), adds `embedded` to its root before first paint, and
+one rule hides `.topbar`. The ribbon stays: inside the split view its
+controls -- Clear, Collapse, the language, the theme -- are the ones a
+reader reaches for, and the wordmark band is what the shell's own bar
+already provides. The rule sits outside the shared `banner.css` block
+on purpose: that block is the lockup five sites share, and this is one
+host's decision about one frame.
+
+Verified on the dev server by framing the page inside itself (the
+frame-ancestors policy allows `'self'`): the framed copy carries the
+class, its topbar is `display: none` and its ribbon sits at 0px; the
+top-level page is untouched. The offline builds are never framed, so
+nothing changes there.
+
 ## #309 — the theme swatch hidden on a phone — **done 7 Sep 2026, live on the offline pair at cache v149; the server current since Roberto's pull the same night**
 
 Roberto, 7 Sep 2026, on #308's cost: *"Feel free to hide the theme button
