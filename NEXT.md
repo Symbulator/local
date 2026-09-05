@@ -298,7 +298,7 @@ docs repository were public with no `LICENSE`, which reads as all rights
 reserved. Both now carry the same MIT text as `solver` and `local`,
 byte-identical, committed and pushed. Not a build, not a deploy.
 
-## #282 — two theme names: *Gray & gold*, *Contrast* — **done 6 Sep 2026, live on the offline pair at cache v137; the server awaits Roberto's pull**
+## #282 — two theme names: *Gray & gold*, *Contrast* — **done 6 Sep 2026, live on the offline pair at cache v137; the server current since Roberto's pull of 6 Sep 2026**
 
 Roberto, 6 Sep 2026: *"Change 'Gray and gold' to 'Gray & gold', and 'High
 contrast' to 'Contrast'."* The table in `tools/palettes.py`, the two
@@ -319,7 +319,7 @@ blocks storage -- the mode would fail there the same way.
 
 Shipped with #285 at cache **v137**.
 
-## #280 — answers set at full size: display-style maths in the results — **done 6 Sep 2026, live on the offline pair at cache v136; the server awaits Roberto's pull**
+## #280 — answers set at full size: display-style maths in the results — **done 6 Sep 2026, live on the offline pair at cache v136; the server current since Roberto's pull of 6 Sep 2026**
 
 Roberto, 6 Sep 2026: *"when there are mathematical expressions that have
 nominator and denominator, the font is shrunk to make it fit in the fix
@@ -360,7 +360,7 @@ Shipped with #279 at cache **v136** (ZIP 31,794,299 bytes, hash-verified; build
 `2026-09-05 04:22 UTC`), both offline sites the same evening; the server
 pull is Roberto's, and it is a real pull (the template changed).
 
-## #279 — Expert Mode's three labels say *equation(s)*, *unknown(s)*, *condition(s)* — **done 6 Sep 2026, live on the offline pair at cache v136; the server awaits Roberto's pull**
+## #279 — Expert Mode's three labels say *equation(s)*, *unknown(s)*, *condition(s)* — **done 6 Sep 2026, live on the offline pair at cache v136; the server current since Roberto's pull of 6 Sep 2026**
 
 Roberto, 6 Sep 2026: *"In the interface, in the Expert Mode, add
 parentheses around the s in 'Add equation(s)', 'Add unknown(s)' and 'Add
@@ -373,7 +373,7 @@ translations moved under them unchanged -- *Agregar ecuaciones*, *Ajouter
 des équations* and the rest keep their plain plurals, per the ruling.
 `i18n check` clean. Shipped with #280 at cache **v136**.
 
-## #278 — thirteen colour themes, each with light and dark, and the scorpion on a transparent ground — **done 6 Sep 2026, live on the four cPanel sites at cache v135; the server awaits Roberto's pull**
+## #278 — thirteen colour themes, each with light and dark, and the scorpion on a transparent ground — **done 6 Sep 2026, live on the four cPanel sites at cache v135; the server current since Roberto's pull of 6 Sep 2026**
 
 Roberto's brief, 6 Sep 2026: *"I would like to allow the user to select
 a theme. Each theme would have a dark and a light versions, switchable
