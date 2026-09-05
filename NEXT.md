@@ -1,6 +1,6 @@
 # Next build — accepted but not yet done
 
-## #309 — the theme swatch hidden on a phone — **done 7 Sep 2026, live on the offline pair at cache v149; the server awaits Roberto's pull**
+## #309 — the theme swatch hidden on a phone — **done 7 Sep 2026, live on the offline pair at cache v149; the server current since Roberto's pull the same night**
 
 Roberto, 7 Sep 2026, on #308's cost: *"Feel free to hide the theme button
 in mobile."* One rule below 480px on `.palette-wrap`, the colour-theme
@@ -18,7 +18,7 @@ cache v149: the Ukrainian short labels became *Додаток* (app), *Скла�
 measured -- both links show in all thirteen languages at 375px. The
 ribbon is one row (53px) in every language.
 
-## #308 — *Collapse all cards* in the ribbon — **done 7 Sep 2026, live on the offline pair at cache v148; the server awaits Roberto's pull**
+## #308 — *Collapse all cards* in the ribbon — **done 7 Sep 2026, live on the offline pair at cache v148; the server current since Roberto's pull the same night**
 
 Roberto, 7 Sep 2026: *"add a link, next to 'Clear all inputs', reading
 'Collapse all cards' (shortened to 'Collapse') that, when clicked,
@@ -46,7 +46,7 @@ button and re-reading the nav: `Doku` comes back the moment it goes.
 Resolved the same night by #309, at Roberto's word, by hiding the theme
 swatch on a phone instead.
 
-## #307 — the Walnut theme removed — **done 7 Sep 2026, live on the offline pair at cache v146; the server awaits Roberto's pull**
+## #307 — the Walnut theme removed — **done 7 Sep 2026, live on the offline pair at cache v146; the server current since Roberto's pull the same night**
 
 Roberto, 7 Sep 2026: *"kill the Walnut theme. It's too close to Earth."*
 One row out of `tools/palettes.py`'s TABLE, `palettes.py write` to
