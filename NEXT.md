@@ -19,9 +19,11 @@ answer that had been *stored* (`values` holds `str(expr)`, so `zoo`)
 read back as a symbol called zoo, because the restricted namespace
 knows `oo` but not `zoo`; `_parse_answer` maps that one word first.
 
-Verified: `1/x` at `x = 0` and `-1/x` at `x = 0` evaluate to ∞ and -∞;
-`req` stored as `zoo` evaluates to ∞; Solve's `x = a` with `a` stored as
-`zoo` gives x = ∞.
+Verified: `1/x` at `x = 0` evaluates to ∞ and `req` stored as `zoo` to ∞
+(both had printed the tilde, the second `zoo` in plain text). Solve's
+`once` calls the same helper; an equation whose stored answer is
+infinite has no finite root to report, so that path shows nothing rather
+than a tilde.
 
 ## #300 — the Load-equivalent button moves under the Thévenin answers — **done 7 Sep 2026, live on the offline pair at cache v144; the server current since Roberto's pull of 7 Sep 2026**
 
