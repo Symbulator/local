@@ -1,6 +1,6 @@
 # Next build — accepted but not yet done
 
-## #305 — one infinity sign in every result field — **done 7 Sep 2026, live on the offline pair at cache v145; the server awaits Roberto's pull**
+## #305 — one infinity sign in every result field — **done 7 Sep 2026, live on the offline pair at cache v145 and on the server since Roberto's pull the same night**
 
 Roberto, 7 Sep 2026, on an ∞ with a tilde over it in a result: *"If
 that's the mathematically correct symbol, we can leave it. But if you
