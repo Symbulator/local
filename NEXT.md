@@ -1,5 +1,17 @@
 # Next build — accepted but not yet done
 
+## #307 — the Walnut theme removed — **done 7 Sep 2026, live on the offline pair at cache v146; the server awaits Roberto's pull**
+
+Roberto, 7 Sep 2026: *"kill the Walnut theme. It's too close to Earth."*
+One row out of `tools/palettes.py`'s TABLE, `palettes.py write` to
+regenerate both templates' theme blocks, the key out of both
+`PALETTES` lists and `paletteNames()`, and `js.palette.walnut` out of
+all thirteen dictionaries. Twelve themes remain. A reader who had
+Walnut stored gets the default: `currentPalette()` already falls back to
+`navy` for a name the list no longer has, so nothing else was needed.
+`palettes check`, `i18n check` and the hidden-guard check clean; the
+served page carries no `walnut` at all.
+
 ## #305 — one infinity sign in every result field — **done 7 Sep 2026, live on the offline pair at cache v145 and on the server since Roberto's pull the same night**
 
 Roberto, 7 Sep 2026, on an ∞ with a tilde over it in a result: *"If
