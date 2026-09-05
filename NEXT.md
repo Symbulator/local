@@ -1,5 +1,30 @@
 # Next build — accepted but not yet done
 
+## #299 — the Load-equivalent button follows the solve's freshness — **done 7 Sep 2026, live on the offline pair at cache v143; the server awaits Roberto's pull**
+
+Roberto, 7 Sep 2026, on #292: *"the 'Load circuit equivalent?' should
+not be active until the Thevenin simulation has been run. Until then,
+deactivate it. Also, if any modifications are made to the input, the
+button becomes inactive until run again."*
+
+The page already tracks exactly that for the Run button -- `freshness.solve`,
+set by `markFresh` after a run and cleared by `markStale` from every input
+listener -- so the button reads the same state: `syncLoadEquivBtn()` runs
+from `paintFreshness('solve')` on every transition and from
+`activatePostSolve` once `last` holds the new run (markFresh fires before
+`last` is replaced, which is why both are needed), and enables the button
+only while the solve is fresh *and* is a Thévenin run with an `ino`. An
+open warning closes when the button goes dead. The tick itself is not an
+input that stales the solve, so ticking after a run leaves the button
+live. The first version's inline *find it first* notice is gone, and its
+key with it, from all thirteen dictionaries.
+
+Verified on the dev server by driving the page: disabled before a run
+and a click shows nothing; enabled after a Thévenin run; still enabled
+after unticking and re-ticking; disabled after one character typed into
+the description; enabled again after re-running; disabled on switching
+the equivalent to resistance.
+
 ## #295 — three theme names: *Default*, *Warm Pink*, *Gray & Gold* — **done 7 Sep 2026, live on the offline pair at cache v141; the server awaits Roberto's pull**
 
 Roberto, 7 Sep 2026, mid-train: *"In the theme list, please capitalise
@@ -80,8 +105,12 @@ What the app does now, to his brief:
   complex resistor value being legal there. The answers on screen are
   cleared, as they are whenever a circuit is loaded over another; the
   Define box opens; the inputs count as edited, so *Update* offers itself.
-  Pressed before any Thévenin run, the button says instead that the
-  equivalent must be found first, since it needs `ino` and `req`.
+  **The button is disabled until a Thévenin run has been made, and
+  disabled again the moment any input changes** (Roberto, later the same
+  evening, #299): it writes `ino` and `req`, so it lives only while a
+  fresh Thévenin result is on screen, following the same freshness the
+  Run button reads. The inline *find it first* notice of the first
+  version went with that.
 
 Element names are lower-cased by the parser, so `rE` becomes `re`, which
 is not a collision -- the parse and a DC solve of the loaded equivalent
