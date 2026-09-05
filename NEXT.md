@@ -1,5 +1,28 @@
 # Next build — accepted but not yet done
 
+## #305 — one infinity sign in every result field — **done 7 Sep 2026, live on the offline pair at cache v145; the server awaits Roberto's pull**
+
+Roberto, 7 Sep 2026, on an ∞ with a tilde over it in a result: *"If
+that's the mathematically correct symbol, we can leave it. But if you
+are changing it in the results, then let's have it displayed consistently
+in all other result fields in evaluate and solve as well."*
+
+The tilde is SymPy's `zoo`, complex infinity -- an infinity of undefined
+direction, which is what a nonzero quantity over zero becomes -- and
+SymPy prints it `zoo` in text and `	ilde{\infty}` in LaTeX. The Results
+card had always folded oo, -oo and zoo into a plain ∞ (`fmt`/`fmt0`);
+Evaluate and Solve handed the value to SymPy's printers, so Bo2's 3.11's
+`req` came out with the tilde in Evaluate and would have read `zoo` in
+plain text. `_infinity_pair()` now does what the card does, in both
+closures (`shown_pair`, `once`), sign kept for -oo. And an infinite
+answer that had been *stored* (`values` holds `str(expr)`, so `zoo`)
+read back as a symbol called zoo, because the restricted namespace
+knows `oo` but not `zoo`; `_parse_answer` maps that one word first.
+
+Verified: `1/x` at `x = 0` and `-1/x` at `x = 0` evaluate to ∞ and -∞;
+`req` stored as `zoo` evaluates to ∞; Solve's `x = a` with `a` stored as
+`zoo` gives x = ∞.
+
 ## #300 — the Load-equivalent button moves under the Thévenin answers — **done 7 Sep 2026, live on the offline pair at cache v144; the server current since Roberto's pull of 7 Sep 2026**
 
 Roberto, 7 Sep 2026: *"Move the 'Load circuit equivalent?' button to
