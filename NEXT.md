@@ -1,5 +1,34 @@
 # Next build — accepted but not yet done
 
+## #308 — *Collapse all cards* in the ribbon — **done 7 Sep 2026, live on the offline pair at cache v147; the server awaits Roberto's pull**
+
+Roberto, 7 Sep 2026: *"add a link, next to 'Clear all inputs', reading
+'Collapse all cards' (shortened to 'Collapse') that, when clicked,
+collapses all the cards in the interface."*
+
+A second `.subbar-action` button before *Clear inputs*, with its own dot
+after it, so the two read as one group of page actions at the ribbon's
+right-hand end. Two spellings through the pair `banner.css` already
+switches at 480px -- *Collapse all cards* above, *Collapse* at or below
+-- and translated in the twelve other languages in the same shape as
+*Clear inputs* (`Alle Karten zuklappen` / `Zuklappen`, `Replier les
+cartes` / `Replier`, 收起所有卡片 / 收起 …), plus the hover title. The click
+closes every `<details>` inside a `.card`, the nested boxes included
+(Settings, Expert Mode, the SymPy help), which is the one gesture that
+gives back a page of headings.
+
+Measured on the dev server at 375px: the ribbon stays one row in every
+language tried, both new items showing, and a click took the open cards
+from two to none. **One cost, flagged to Roberto**: the nav's one-line
+rule hides a link that would wrap, and the new button's width is what
+the second link needed in six languages -- at 375px German, French,
+Portuguese, Indonesian, Japanese and Ukrainian now show *App* but not
+*Docs* (English, Spanish and the rest keep both). Measured by hiding the
+button and re-reading the nav: `Doku` comes back the moment it goes.
+Options if he wants the link back on a phone: hide *Collapse* below
+480px (the card headings still fold each card), or drop the dot beside
+it there and accept it for Ukrainian alone.
+
 ## #307 — the Walnut theme removed — **done 7 Sep 2026, live on the offline pair at cache v146; the server awaits Roberto's pull**
 
 Roberto, 7 Sep 2026: *"kill the Walnut theme. It's too close to Earth."*
