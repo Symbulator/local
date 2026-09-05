@@ -1,5 +1,164 @@
 # Next build — accepted but not yet done
 
+## #295 — three theme names: *Default*, *Warm Pink*, *Gray & Gold* — **done 7 Sep 2026, live on the offline pair at cache v141; the server awaits Roberto's pull**
+
+Roberto, 7 Sep 2026, mid-train: *"In the theme list, please capitalise
+'Pink' and 'Gold', and change 'Navy' with 'Default'."* The names live in
+three places that must agree -- `tools/palettes.py`'s TABLE, and the
+`paletteNames()` fallbacks in both templates (the Numerical Solver page
+has its own copy, which is what `i18n check` caught: *two different
+English texts for 'js.palette.navy'*). All three say *Default*, *Warm
+Pink* and *Gray & Gold* now; `palettes.py write` rewrote the two theme
+blocks. The twelve translations of *Navy* became each language's
+*Default* (*Standard*, *Predeterminado*, *Par défaut*, *Padrão*,
+*Defaŭlta*, 默认, デフォルト, 기본, *Bawaan*, डिफ़ॉल्ट, ডিফল্ট, *Типова*); the
+pink and gold names keep their own languages' casing, which was already
+what each language does with a colour name. The palette key stays `navy`
+-- it is the stylesheet's attribute value and a stored preference, not a
+word anyone reads.
+
+Shipped with #291/#292 at cache **v141** (v140 had gone out minutes
+earlier without it; ZIP 31,802,167 bytes, hash-verified on both sites).
+
+## #292 — the th tool's load features, ported at last from version 8 — **done 7 Sep 2026, live on the offline pair at cache v141; the server awaits Roberto's pull**
+
+Roberto, 7 Sep 2026: *"The features of the th() tool of Symbulator were
+not properly ported from v8 to v9."* Version 8's `th`, once it had the
+equivalent, asked *"If you are planning to analyze a load connected to
+this equivalent, we can give you the description of the equivalent
+circuit and some key equations that will help. Interested? [y/n]"* and on
+yes defined `irl`, `vrl` and `prl` in the variable `load` and wrote the
+equivalent circuit into `eqcir`. None of that had crossed to version 9;
+the tutorial had been made to work around the gap with hand-typed
+`vth/(req+2)` expressions -- the *"nonsense added by the AI"* that #293
+removes on the docs side.
+
+What the app does now, to his brief:
+
+* **A question under the two node boxes**, shown only when the
+  equivalent asked for is *Thévenin / Norton*: *Are you running a problem
+  with a load connected to this equivalent circuit?* Unticked, the app
+  behaves exactly as before.
+* **Ticked, Results shows three more answers under the four**, each a
+  function of `load`, in the calculator's words: `irl` *current in load*,
+  `vrl` *voltage drop in load*, `prl` *power consumed in load*. The
+  formulas are v8's, decoded from `calculator/decoded/v8_programs.txt`
+  and not re-derived: `ino*req/(load+req)`, `load*ino*req/(load+req)`,
+  `load*ino^2*req^2/(load+req)^2` in DC; the same with `zeq` in AC and
+  FD, the power as the real part of S = V I* -- `prl` for RMS phasors,
+  `aprl` (*average power consumed in load*) with the extra half for peak
+  ones, as v8 named them. They are computed in `symbulator_ui.py`
+  (`_load_answers`) on every th run and returned apart from the four, in
+  `load_extras`, so the page decides whether to show them and ticking or
+  unticking after a solve redraws Results without solving again. They are
+  in `values` either way, so **Evaluate** takes `irl` with `load = 2` in
+  **Conditions** whether or not the tick is on -- B11's 9.6 gives 3/2,
+  and 0.0588 at 100, the book's .059. A source with nothing in series
+  (the op-amp case, `ino` unbounded) has no load formulas through `ino`,
+  so the list is empty rather than three infinities. No solver release:
+  the solver's `th()` is untouched, so the server variant needs its pull
+  and nothing from PyPI.
+* **Beneath the tick, a button: *Load circuit equivalent?*** It asks
+  first, inline rather than in a browser dialog so it translates and the
+  circuit stays visible: the equivalent will overwrite the Circuit
+  Description, Define and Expert Mode fields and switch the analysis to
+  *Solve circuit* -- cancel and save first if the circuit is unsaved.
+  Cancel hides the warning and nothing moves. Proceed clears the
+  description, Define and the three Expert Mode fields (and the Enable
+  tick), sets the analysis to *Solve circuit*, and writes v8's `eqcir` in
+  version 9's fields --
+
+      jN,0,n,iNo
+      rE,n,0,rEq
+      rL,n,0,load
+
+  with **Define** holding `iNo=` and `rEq=` at their **exact** values
+  from `values`, not the rounded display (RM3's 9-8 gets `iNo=-9/25`,
+  `rEq=84`), and `load=` too if a `load = …` line was standing in Define
+  or in Evaluate's Conditions -- the calculator's `load` variable
+  surviving into its eqcir. In AC and FD the second line is `zEq`, a
+  complex resistor value being legal there. The answers on screen are
+  cleared, as they are whenever a circuit is loaded over another; the
+  Define box opens; the inputs count as edited, so *Update* offers itself.
+  Pressed before any Thévenin run, the button says instead that the
+  equivalent must be found first, since it needs `ino` and `req`.
+
+Element names are lower-cased by the parser, so `rE` becomes `re`, which
+is not a collision -- the parse and a DC solve of the loaded equivalent
+were run first. `irl`/`vrl`/`prl` are typeset `i_{rl}`, `v_{rl}`,
+`p_{rl}` (`TEXNAME`), and their four labels joined the engine vocabulary
+(`srv.*`), translated in the twelve other languages along with the
+question, the button, the warning, *Proceed*, *Cancel* and the two new
+Evaluate placeholders (#291); `i18n check` clean, 650 keys.
+
+**The tick is saved with the entry** (Roberto, the same day: *"Save the
+tick to input files, and update built in examples"*): a `with_load`
+key, yes/no, written beside the port nodes only when on, read back as a
+boolean like `si` and `units`, restored by the loader and cleared by
+Clear all; `check_export_fields.py` sees it in `inputsSnapshot()` and
+round-trips it. The format reference names it after `kind`, in all
+thirteen languages. The eleven built-in entries whose problem connects a
+load -- B11's 9.6 and RM3's 9-8, Bo2's 3.10, 3.5, 3.7 and Drill 3.7,
+RM3's 9-7, 9-13 and Practice Problem 9.5, B11's 9.15, AS2's 4.8, and
+Lesson 5's TR5 Figure 4-32 -- carry `with_load: yes`, so they open with
+the question ticked and the load answers on screen.
+
+Guards: `check_hidden_guards.py` clean (the new `[hidden]` boxes have no
+author `display`); `build_local.py --check` runs its JavaScript check
+clean and then reports STALE, as it must until the build; the bridge
+passes the response through whole, but `app.py` lists its fields by hand
+(its own comment warns of this) and needed `load_extras` added -- found
+because the first browser run showed four rows, not seven. The
+`evaluate fetch` rewrite rule in `build_local.py` was updated for #291's
+change to the request body.
+
+Verified on the Flask dev server by driving the page: the question is
+`display: none` for *Solve circuit* and for the other two equivalents and
+`block` for Thévenin; ticked, B11's 9.6 shows seven rows with the seven
+labels, unticked four, re-ticked seven; `irl` at `load = 2` evaluates to
+3/2; the button before a run shows the *find it first* notice; after a
+run, Cancel leaves the description as it was, Proceed leaves
+`jN,0,n,iNo / rE,n,0,rEq / rL,n,0,load`, Define `iNo=3 / rEq=2 / load=2`
+(the 2 carried from Conditions), Expert Mode empty and off, the analysis
+*Solve circuit*, the results cleared.
+
+The example books follow the chapter (#293): B11's 9.6, Bo2's 3.10, 3.5,
+3.7 and Drill 3.7, RM3's 9-7, 9-13 and Practice Problem 9.5, B11's 9.15,
+AS2's 4.8 and Lesson 5's TR5 Figure 4-32 now carry `evaluate: irl` (or
+`vrl`, `prl`) with an `evaluate_conditions: load = …`, and RM3's 9-8
+follow-up entry is the circuit the button writes, with its two
+`defines:`. `verify_lesson.py --quiet`: Lesson_04a 7 entries, 0
+problems; Lesson_04b 46 entries, the one standing deliberate failure
+(Bo2's 3.11) and nothing else.
+
+**To ship**: bump `sw.js` `CACHE_VERSION` to v140, `build_local.py`,
+`build_zip.py --assets ../../local`, `stage_install_site.py`, the two
+cPanel deploys; the server needs its pull (`symbulator_ui.py`, `app.py`,
+the template, thirteen dictionaries, the examples), no `pip`. X will
+take it on its next merge.
+
+## #291 — the Evaluate card is active before any solve — **done 7 Sep 2026, live on the offline pair at cache v141 with #292**
+
+Roberto, 7 Sep 2026: *"We need to make the Evaluate card active even
+without a circuit solved, because people may need to use the pr function
+to reduce resistors. So please make it active always."*
+
+`evaluate_ui` never needed a solve -- `pr(100, 220)` with an empty
+answer set already came back 275/4 -- only the page held the card back:
+`activatePostSolve` enabled it and `clearResults` disabled it, and
+`evaluate()` returned early with no `last`. Now the field, the button and
+the Conditions box start live with their working placeholders, the card
+is never `inactive`, and with nothing solved the request carries an
+empty `values` and no domain, so the evaluator works on the expression
+and Define alone. The label's hint says so: *Works with no circuit
+solved, too: `pr(100, 220)` is the parallel of two resistors.* The
+Solve-equations card still waits for a solve, and the *solve a circuit
+first…* wording stays for it. Two `js.eval.*` keys became markup
+placeholders; the twelve translations moved with them.
+
+Verified in the browser with nothing solved: `pr(100,220)` evaluates to
+275/4.
+
 ## #289 — the tool answers' labels in lower case, like every other label — **done 6 Sep 2026, live on the offline pair at cache v139; the server awaits Roberto's pull**
 
 Roberto, 6 Sep 2026, reading an equivalent-resistance result: *"the label
