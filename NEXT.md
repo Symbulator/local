@@ -42,7 +42,7 @@ the same number and neither could see the other's.
 commit it, and push it before using the number -- it costs one commit
 and it is the only thing that makes the claim visible to anyone else.
 
-## #435 — *real solutions only* ticked by default in DC and TR — **live on the offline pair, 13 Sep 2026** (cache v216; the version 9 account wants a pull and a Reload, no `pip`)
+## #435 — *real solutions only* ticked by default in DC and TR — **live everywhere, 13 Sep 2026** (cache v216; `symbulator.pythonanywhere.com` on build `2026-09-12 21:36 UTC` after Roberto's pull)
 
 Roberto, 13 Sep 2026: *"I'm thinking that the 'real solutions only'
 checkbox tick should be default in DC, and maybe even required."* Default,
@@ -58,7 +58,7 @@ The sampler's Solve card lines follow it: *Press Solve equations* where
 the default is what the run wants, *Tick* or *Untick* only where it is
 not (13.9's poles in FD leave it off, 14.6's design in FD ticks it).
 
-## #434 — a source's card reads the power it delivers — **live on the offline pair, 13 Sep 2026** (cache v216; the version 9 account wants a pull and a Reload, no `pip`)
+## #434 — a source's card reads the power it delivers — **live everywhere, 13 Sep 2026** (cache v216; `symbulator.pythonanywhere.com` on build `2026-09-12 21:36 UTC` after Roberto's pull, proved by driving `/api/solve` on the live server: 3.11's source reads *power delivered* 20 W, the Manual's 3-4-5 source *average power delivered* 0.6 W and *power factor* 0.6000 lagging)
 
 Roberto, 13 Sep 2026: *"in the result cards for sources of both types,
 we should display not the 'power consumed' (e.g. pe1=10W), but their
