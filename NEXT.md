@@ -58,7 +58,7 @@ The sampler's Solve card lines follow it: *Press Solve equations* where
 the default is what the run wants, *Tick* or *Untick* only where it is
 not (13.9's poles in FD leave it off, 14.6's design in FD ticks it).
 
-## #434 — a source's card reads the power it delivers — **live everywhere, 13 Sep 2026** (cache v216; `symbulator.pythonanywhere.com` on build `2026-09-12 21:36 UTC` after Roberto's pull, proved by driving `/api/solve` on the live server: 3.11's source reads *power delivered* 20 W, the Manual's 3-4-5 source *average power delivered* 0.6 W and *power factor* 0.6000 lagging)
+## #434 — a source's card reads the power it delivers — **live everywhere, 13 Sep 2026** (cache v218 after the two rounds below; `symbulator.pythonanywhere.com` on build `2026-09-12 21:36 UTC` after Roberto's pull, proved by driving `/api/solve` on the live server: 3.11's source reads *power delivered* 20 W, the Manual's 3-4-5 source *average power delivered* 0.6 W and *power factor* 0.6000 lagging — both labels since reworded, see the rounds below)
 
 Roberto, 13 Sep 2026: *"in the result cards for sources of both types,
 we should display not the 'power consumed' (e.g. pe1=10W), but their
@@ -82,6 +82,16 @@ thirteen dictionaries (`srv.power delivered`, `srv.average power
 delivered`, `srv.power factor`), added by hand and packed, and
 `i18n.py`'s vocabulary names them so `check` stays green.
 
+**Roberto's placement round, an hour later (cache v217).** From two
+screenshots of the live cards: a source's complex power reads `-se` too,
+labelled *complex power delivered*, in line with the real power above
+it; the power factor's label says whose it is, *delivered — power
+factor*; and **a rule for every card: "power" never stands alone** — a
+passive element's rows are *power consumed*, *average power consumed*
+and *complex power consumed*, a source's are the delivered forms. Three
+`srv.` words retired and four added in every dictionary; the Manual's
+3-4-5 panel and its two tables, and the sampler's 10.8, follow the card.
+
 **Read through the app before it was written:** 3.11's source card
 `-p = 20 W`; the Manual's 3-4-5 source `-0.6 W` average delivered and
 `0.6000 lagging`; NR12 9.9's current source `0.8000 leading`, its load
@@ -96,6 +106,21 @@ switching a sign; Lesson 3's Drill Problem 1.11 shows its two sources as
 the card now does; and the sampler's 3.11 and 4.13 read the card rather
 than typing `-p_e` into Evaluate — the current still needs the minus
 sign, and the page says so once.
+
+**Roberto's third word, the same evening (cache v218):** *"In the case
+of AC, for values like pe and pj, add 'real' to 'power delivered', so
+it reads 'real power delivered', compared to 'complex power
+delivered'."* So the AC pair on every card is **real** and **complex**:
+a source's rows read *real power delivered* over `-pe` and *complex
+power delivered* over `-se`; a passive element's read *real power
+consumed* over `ape` and *complex power consumed* over `se`. The
+`ap_{n}` key's label in `_ELEMENT_KEYS` and the source branch of the
+element loop both changed; `srv.average power consumed` and
+`srv.average power delivered` retired from every dictionary and
+`srv.real power consumed` / `srv.real power delivered` added, with
+the vocabulary in `i18n.py` following (`check` ok). The Manual's two
+tables say *real power consumed* and its inductor sentence *no real
+power*; the answer names `ape`, `apr1` are untouched, being names.
 
 ## #433 — the Solve card's conditions and equations behave like Expert Mode's — **live everywhere, 12 Sep 2026** (cache v210, ZIP 32,013,326 b, `symbulator_ui.py`, `bridge.py` and `sw.js` hash-verified on the install host; `symbulator.pythonanywhere.com` on build `2026-09-12 11:49 UTC` after Roberto's pull, proved by driving both of his forms against the live server; X takes it at its next merge)
 
