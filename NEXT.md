@@ -42,6 +42,61 @@ the same number and neither could see the other's.
 commit it, and push it before using the number -- it costs one commit
 and it is the only thing that makes the claim visible to anyone else.
 
+## #435 — *real solutions only* ticked by default in DC and TR — **live on the offline pair, 13 Sep 2026** (cache v216; the version 9 account wants a pull and a Reload, no `pip`)
+
+Roberto, 13 Sep 2026: *"I'm thinking that the 'real solutions only'
+checkbox tick should be default in DC, and maybe even required."* Default,
+yes; required, no. The tick is on when the analysis is DC or TR, where a
+complex root of a real circuit is never physical, and off in AC and FD,
+where phasors and $s$ are complex by nature — set on every change of the
+{{ui:Analysis}} menu, on *Clear all inputs*, and at page load. It stays a
+tick rather than a rule because a complex root of a DC circuit is the sign
+of a mis-set problem, and a reader debugging wants to see it. A loaded
+entry's own `solve_real_only:` wins over the default; an entry without
+the field takes it. One function in the template, `defaultRealOnly()`.
+The sampler's Solve card lines follow it: *Press Solve equations* where
+the default is what the run wants, *Tick* or *Untick* only where it is
+not (13.9's poles in FD leave it off, 14.6's design in FD ticks it).
+
+## #434 — a source's card reads the power it delivers — **live on the offline pair, 13 Sep 2026** (cache v216; the version 9 account wants a pull and a Reload, no `pip`)
+
+Roberto, 13 Sep 2026: *"in the result cards for sources of both types,
+we should display not the 'power consumed' (e.g. pe1=10W), but their
+negative, labelled as 'power delivered' and accordingly show the negative
+ahead of the variable (e.g. -pe1=10W). Even I am getting tired of the
+references to changing signs."* And: *"by default in AC analysis we
+should display the delivered power's power factor for every source e or
+j."*
+
+**What changed, and what did not.** The answer `p_e1` is exactly what it
+was — power consumed, in Evaluate, in Solve, in every saved file and in
+`values` — and only the card's row changed: for an `e` or a `j` it reads
+**power delivered** over `-pe1 = 10 W` (in AC, **average power delivered**
+over `-pe1`, the complex power `se1` untouched). In AC a source's card
+gains a **power factor** row, `pf_e1 = 0.6 lagging`, the pf tool's own
+element reading of #430 — the power the source *delivers*, current
+negated first — shown when the voltage and current came out as numbers
+and skipped otherwise, at the Rounding setting's digits or four. Both are
+in the element loop of `solve_ui`; the labels are `srv.` words in all
+thirteen dictionaries (`srv.power delivered`, `srv.average power
+delivered`, `srv.power factor`), added by hand and packed, and
+`i18n.py`'s vocabulary names them so `check` stays green.
+
+**Read through the app before it was written:** 3.11's source card
+`-p = 20 W`; the Manual's 3-4-5 source `-0.6 W` average delivered and
+`0.6000 lagging`; NR12 9.9's current source `0.8000 leading`, its load
+being capacitive; Lesson 3's Drill Problem 1.11, `-pei = -1.92 W` (the
+source absorbs) and `-ped = 3.07 W`. `check_pf_tool.py` ok; `i18n check`
+ok; `verify_lesson.py` clean on Nilsson_Riedel, Lessons 02, 03 and 07 —
+no expected-answer file names a source's power, so nothing keyed on the
+old row. **The documentation moved with it:** the Manual's *Signs*
+paragraph says what the card shows and why `pe1` itself does not change;
+Lesson 2's version 9 line reads the *power delivered* row instead of
+switching a sign; Lesson 3's Drill Problem 1.11 shows its two sources as
+the card now does; and the sampler's 3.11 and 4.13 read the card rather
+than typing `-p_e` into Evaluate — the current still needs the minus
+sign, and the page says so once.
+
 ## #433 — the Solve card's conditions and equations behave like Expert Mode's — **live everywhere, 12 Sep 2026** (cache v210, ZIP 32,013,326 b, `symbulator_ui.py`, `bridge.py` and `sw.js` hash-verified on the install host; `symbulator.pythonanywhere.com` on build `2026-09-12 11:49 UTC` after Roberto's pull, proved by driving both of his forms against the live server; X takes it at its next merge)
 
 Roberto solved NR12's Example 3.10, the Wheatstone bridge, with the
