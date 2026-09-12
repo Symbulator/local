@@ -42,7 +42,7 @@ the same number and neither could see the other's.
 commit it, and push it before using the number -- it costs one commit
 and it is the only thing that makes the claim visible to anyone else.
 
-## #433 — the Solve card's conditions and equations behave like Expert Mode's — **live on the offline pair, 12 Sep 2026** (cache v210, ZIP 32,013,326 b, `symbulator_ui.py`, `bridge.py` and `sw.js` hash-verified live; both PythonAnywhere accounts want a pull and a Reload, no `pip`)
+## #433 — the Solve card's conditions and equations behave like Expert Mode's — **live everywhere, 12 Sep 2026** (cache v210, ZIP 32,013,326 b, `symbulator_ui.py`, `bridge.py` and `sw.js` hash-verified on the install host; `symbulator.pythonanywhere.com` on build `2026-09-12 11:49 UTC` after Roberto's pull, proved by driving both of his forms against the live server; X takes it at its next merge)
 
 Roberto solved NR12's Example 3.10, the Wheatstone bridge, with the
 Solve card instead of Expert Mode: the galvanometer a short `sg`, the
