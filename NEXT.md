@@ -42,6 +42,76 @@ the same number and neither could see the other's.
 commit it, and push it before using the number -- it costs one commit
 and it is the only thing that makes the claim visible to anyone else.
 
+## #433 — the Solve card's conditions and equations behave like Expert Mode's — **live on the offline pair, 12 Sep 2026** (cache v210, ZIP 32,013,326 b, `symbulator_ui.py`, `bridge.py` and `sw.js` hash-verified live; both PythonAnywhere accounts want a pull and a Reload, no `pip`)
+
+Roberto solved NR12's Example 3.10, the Wheatstone bridge, with the
+Solve card instead of Expert Mode: the galvanometer a short `sg`, the
+equation `isg = 0`, the unknown `R_x`, and `R_3 = 10` as a condition.
+The card answered `R_x = 4 R_3`. Writing `R_3 = 10` as a second
+equation instead answered the same. Expert Mode, fed the identical
+three things, answers **40 Ω**. His ruling: *"In theory, the Solve
+approach should do the same as the Expert one"*, and of the second
+form, *"that is just plain wrong."*
+
+**Two faults, both in `solveq_ui` (`symbulator_ui.py`), neither in the
+solver.**
+
+  * **A condition was only ever a filter.** The card solved first and
+    then tested each condition against the solution, keeping any it
+    could not decide. `R_3 = 10` tested against `R_x = 4·R_3` decides
+    nothing, so it was kept as satisfied and changed nothing. Expert
+    Mode hands its conditions to the solver, which has always read an
+    equality as the calculator's `|` ("with") operator — a substitution
+    applied before solving — and an inequality as a filter after. The
+    card now makes the same split: an equality with a bare symbol on
+    one side, the symbol not one of the unknowns, substitutes into the
+    equations first (`_equality_binding`); everything else — an
+    inequality, a chained comparison, an equality between two
+    expressions, an equality *on an unknown* — stays a filter, so
+    `x**2 = 4` with `x = -2` still keeps the named root.
+  * **An equation naming no unknown was dropped.** `sp.solve` is asked
+    only for the named unknowns, and an equation with none of them in
+    it constrains nothing it is solving for, so `R_3 = 10` beside
+    `isg = 0` with `R_x` asked for fell on the floor. The solver picks
+    such a symbol up as an unknown of its own accord ("a brand-new
+    symbol appearing in an extra equation becomes an unknown
+    automatically"), and so does the card now: every free symbol of an
+    equation that names none of the unknowns is solved for too, so the
+    two-equation form returns `R_x = 40` **and** `R_3 = 10`, as Expert
+    Mode does. With neither a condition nor a second equation the
+    answer stays the symbolic `4 R_3`: nothing is invented for a
+    symbol nothing gives a value to.
+
+Evaluate's Conditions box already substituted (`t = 2`), so the Solve
+card was the odd one of the three; now all three read `name = value`
+the same way.
+
+**A third fault, found by running his file through the other front
+end.** His first entry writes the two equations on one line, `isg=0 and
+R_3=10`. The hosted app's route splits that on ` and ` before parsing;
+`bridge.py`, which the install and ZIP builds call instead, split only
+the *conditions* and handed the equations over whole, so the offline
+app refused the line as *"Could not read the value '0 and R_3=10'"*
+while `symbulator.pythonanywhere.com` solved it. One line in
+`bridge.py`, and the check now drives the bridge too when the sibling
+repo is present. Worth knowing why nothing had caught it: the drift
+harness `verify_bridge.py` compares the two front ends over every
+example's *solve*, and no example exercises the Solve card.
+
+**Guard:** `tools/check_solveq_conditions.py` runs Roberto's file
+through the real app — `solve_ui`, then `solveq_ui` on the values the
+page holds — and asserts both forms give 40, the symbolic answer
+survives when nothing sets `R_3`, an inequality still filters, an
+equality on the unknown still filters, and the card and Expert Mode
+agree to the digit. `--prove-red` disables both halves and fails five
+checks. Both his files were also posted through `/api/solve` and
+`/api/solveq` exactly as the page posts them, the `and` form included
+(`isg=0 and R_3=10` is split by the endpoint's `_expand_and`).
+
+**No solver change, so no `pip`.** The shared module moved, so the
+offline pair is rebuilt at cache **v210** and both PythonAnywhere
+accounts want a pull and a Reload.
+
 ## #432 — Roberto's Course review round of 13 Sep 2026 (docs) — **claimed; the write-up is in `Documentation/NEXT_DOCS.md`**
 
 ## #431 — no underscores in the interface's example variables — **live, 13 Sep 2026** (cache v209; both PythonAnywhere accounts want a pull and a Reload, no `pip`)
