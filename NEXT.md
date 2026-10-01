@@ -129,6 +129,8 @@ page serves no *beta* at all.
 
 ## #470 — the JOSS paper fact-checked and the solver repository made ready for review — **done 1 Oct 2026, pushed; CI on GitHub**
 
+**The paper is parked until January 2027.** Its state, the settled rulings and the open list are in `repos/solver/paper/STATUS.md`; start there.
+
 A draft JOSS paper arrived from another session with a brief: verify every
 claim by running code. The report is `repos/solver/paper/factcheck.md`; the
 paper itself, corrected, is `paper/paper.md` and `paper/paper.bib` in the
