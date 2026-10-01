@@ -58,9 +58,116 @@ The sampler's Solve card lines follow it: *Press Solve equations* where
 the default is what the run wants, *Tick* or *Untick* only where it is
 not (13.9's poles in FD leave it off, 14.6's design in FD ticks it).
 
-## #471 — claimed 1 Oct 2026: **version 9 and version 8 leave beta** — the β off every wordmark, the landing page's beta wording and version 8's Beta chip, `book.yaml`'s status, the solver's classifier. In progress.
+## #471 — versions 9 and 8 leave beta — **live on install, the ZIP (cache v239), learn and the landing page, 1 Oct 2026; `symbulator.pythonanywhere.com` wants a pull and a Reload, no `pip`**
 
-## #470 — claimed 1 Oct 2026: **the JOSS paper and the solver repository's readiness** — `paper/paper.md` fact-checked and corrected (`paper/factcheck.md`), README test counts and stale sentences, CI, CONTRIBUTING, CITATION.cff, a code of conduct, a tagged release. In progress.
+Roberto, 1 Oct 2026: *"let's remove the reference to Beta. This is something
+that needs to be reflected in the solver, the interface and the documentation
+everywhere"*, and minutes later *"You can remove the beta from version 8 as
+well."* This closes **#137**, the standing reminder of 28 Aug 2026.
+
+What moved, and where:
+
+* **The app's wordmark.** `repos/server/branding.py`'s `BRAND_BETA` is `""`,
+  so both templates render `Symbulator <span class="tm">9</span>` and the
+  offline build bakes the same (`build_local.py` already dropped the span for
+  an empty value). The `{% if brand_beta %}` slot and `banner.css`'s `.beta`
+  rule **stay**: they cost nothing, and a fork or a later version can be
+  marked again without touching the template — which is also why the
+  templates remain identical to X's. Only comments changed in the templates
+  and in `banner.css` (copied to the landing page and restamped).
+* **learn.** `web/index.php` and `tools/static_preview.py` no longer append a
+  β on version 9's pages.
+* **The landing page.** The wordmark's β, the hero's *"Symbulator 9, in beta
+  version, for Python and SymPy"* (now *"Symbulator 9, for Python and
+  SymPy"*), and version 8's **Beta** chip with its *"Still in beta, so expect
+  the occasional bug"* are gone; the unused `.chip-beta` rule went with them.
+* **Version 8 in the docs.** The Introduction's download section (`::: only
+  8`) called it *"version 8 beta"* and warned of *"the occasional bug"*; both
+  went. `book.yaml`'s version 8 `status:` is `stable` (it is inert metadata —
+  nothing reads it — but it said beta).
+* **The timeline.** `paper/timeline.tsv` gained *1 October 2026 — Versions 9
+  and 8 leave beta.*, written by `tools/gen_timeline.py` into the credits
+  chapter and the monograph's source. The 28 Aug row *Version 9, a public
+  beta.* stays: it is history.
+* **The solver.** `Development Status :: 5 - Production/Stable` in
+  `pyproject.toml` (with 3.13 and 3.14 added to the Python classifiers), and a
+  comment in `messages.py` that still called the SPICE translator beta. PyPI's
+  page shows the old classifier until the next release, which is Roberto's
+  word (the upload cannot be undone).
+
+**Left as they are, on purpose:** the Greek β wherever it is a circuit
+parameter (`beta*irb`, Lesson 3's transistor, the sampler's bandwidth) and the
+syntax reference's *"`beta` means what you intend"*, which is a variable name;
+the monograph's *"released as a beta in June 2013"* (version 6's history); the
+credits' *"helping him beta-test them"* (2001); and the 2023 originals.
+
+**Verified by fetching.** install: three files moved, all checks passed, the
+staged site proved the ZIP's build first (64 files, 0 differ). The ZIP:
+32,061,569 b, hash matches. learn and the landing page deployed and checked
+by the script; then the visible text of six live pages was diffed before and
+after: `7/index`, `7/introduction` and `8/lesson-dc` **identical**;
+`8/introduction` changed only in the two beta sentences; `9/introduction` lost
+only the `β`; `9/credits` lost the `β` and gained the timeline row. The landing
+page serves no *beta* at all.
+
+**Still to move:**
+* `symbulator.pythonanywhere.com`: `cd /home/Symbulator/symbulator_web && git
+  pull`, then **Reload**. No `pip`.
+* **The PDFs lag**, at the `--web` default: the Course, Manual and versions 7
+  and 8 PDFs print the credits timeline without its new row, and version 8's
+  still says *"version 8 beta"*; the monograph's PDF lacks the row too. A full
+  `python build.py` (and `xelatex symbulator_monograph.tex` twice) clears it,
+  at Roberto's word.
+* **X** shows no beta already (its `BRAND_BETA` was always empty). The comment
+  changes reach it at its next merge, which is Roberto's to call; keep X's
+  `branding.py` as always.
+
+## #470 — the JOSS paper fact-checked and the solver repository made ready for review — **done 1 Oct 2026, pushed; CI on GitHub**
+
+A draft JOSS paper arrived from another session with a brief: verify every
+claim by running code. The report is `repos/solver/paper/factcheck.md`; the
+paper itself, corrected, is `paper/paper.md` and `paper/paper.bib` in the
+solver repository (the Downloads copy is kept as the original draft).
+
+**The finding that mattered: the Formulation paragraph was wrong.** It said
+the engine keeps every branch voltage and current as an unknown, *"closer to
+sparse tableau"*. Printing the stamped systems showed otherwise: the unknowns
+are node voltages plus the currents of resistors, inductors, voltage sources,
+shorts, op-amp outputs, transformers and two-port terminals; capacitor and
+current-source currents are substituted into KCL; **no element voltage is
+ever an unknown** (a divider is 5×5, not tableau's 8). Voltage drops, powers
+and source impedances are derived after the solve, in DC and AC only. It is
+the *equation generation* method of Roberto's 1999 paper, learned from Joe
+Riel's Syrup and chosen over MNA, and the paper now says so.
+
+Other corrections: EqSheet does not use the package (`eqsheet.py` imports
+SymPy and SciPy only); the app is not "at symbulator.com"; the docs are not
+computed by it; Nilsson & Riedel is the **12th** edition, not the 11th; the AI
+disclosure lacked Claude Fable 5.1 (21 commits); "runs unchanged" became
+"with few or no changes" — of the 109 descriptions in the 2023 version 8
+documentation, 82 run as printed, and the rest fail on the Nspire's display
+glyphs (`𝐢`, en-dash minus, `√`), `i`-first products like `10.+i5.`, and one
+`lf\t2s` call. **The polar phasor's float is Roberto's ruling of 25 Aug 2026**
+(`si_prefix.py` line 208), confirmed 1 Oct 2026 — *"No point in making polars
+exact. It's not practical."* — so the paper explains it rather than the code
+changing. Research impact now cites the 2001 thesis and the *BURAN* article
+(which names **fourteen** countries; the archive catalogue's "seventeen" is
+not in its text).
+
+The repository: CI (`.github/workflows/tests.yml`, Python 3.9 to 3.14, ahkab
+in a job of its own that may fail), `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`,
+`CITATION.cff`; the README's tests named by command instead of the stale *"48
+tests across six files"* (there are 26 files, 576 passed and 2 skipped here,
+547 and 4 in a clean venv without ahkab and IPython); two sentences that
+still said a side behind a port is *"reported floating"* corrected; the quick
+start's transient exact; `notebooks/README.md` describing `books/`; the
+release commit of 0.6.17 tagged `v0.6.17` and pushed.
+
+**Roberto's, still:** the paper's TODOs (ORCID, teaching evidence,
+acknowledgements, the Nilsson & Riedel year on the title page); turning the
+`v0.6.17` tag into a GitHub Release (no `gh` on this machine); and a **0.6.18
+release** if PyPI's page should show the new classifier and README — no code
+moves in it.
 
 ## #469 — claimed by the docs tree, 21 Sep 2026: AS7 Problem 19.2 gets the book's own Fig. 19.66 (cropped from `Other/AS7.pdf`, `assets/circuit/as7-prob19-2.jpg`); the picture in the entry's `image:` line in `Lesson_13.cir` is now that figure, so **symbulator-v238** carries it (install and the ZIP; version 9's PythonAnywhere account takes it at its next pull, no `pip`). Write-up in `Documentation/NEXT_DOCS.md`.
 
