@@ -58,7 +58,7 @@ The sampler's Solve card lines follow it: *Press Solve equations* where
 the default is what the run wants, *Tick* or *Untick* only where it is
 not (13.9's poles in FD leave it off, 14.6's design in FD ticks it).
 
-## #471 — versions 9 and 8 leave beta — **live on install, the ZIP (cache v239), learn and the landing page, 1 Oct 2026; `symbulator.pythonanywhere.com` wants a pull and a Reload, no `pip`**
+## #471 — versions 9 and 8 leave beta — **live everywhere, 1 Oct 2026** (cache v239, then v240 for 0.6.18; `symbulator.pythonanywhere.com` on build `2026-10-01 00:18 UTC` after Roberto's pull, no β served; all PDFs rebuilt and live)
 
 Roberto, 1 Oct 2026: *"let's remove the reference to Beta. This is something
 that needs to be reflected in the solver, the interface and the documentation
@@ -110,14 +110,19 @@ after: `7/index`, `7/introduction` and `8/lesson-dc` **identical**;
 only the `β`; `9/credits` lost the `β` and gained the timeline row. The landing
 page serves no *beta* at all.
 
-**Still to move:**
-* `symbulator.pythonanywhere.com`: `cd /home/Symbulator/symbulator_web && git
-  pull`, then **Reload**. No `pip`.
-* **The PDFs lag**, at the `--web` default: the Course, Manual and versions 7
-  and 8 PDFs print the credits timeline without its new row, and version 8's
-  still says *"version 8 beta"*; the monograph's PDF lacks the row too. A full
-  `python build.py` (and `xelatex symbulator_monograph.tex` twice) clears it,
-  at Roberto's word.
+**Then, the same morning, at Roberto's word:**
+* `symbulator.pythonanywhere.com` took his pull: `/healthz` reads build
+  `2026-10-01 00:18 UTC` running *and* on disk, and the served wordmark is
+  `<span class="tm">9</span>`, no β.
+* **The PDFs, a full build** (*"Please do full build"*): v7 **235**, v8 **223**,
+  v9 **314**, Manual **54**, samplers **57** and **52**, all pages unmoved; the
+  monograph rebuilt with `xelatex` twice, **53** pages. Text-checked with spaces
+  removed: the timeline row in the three Course PDFs and the monograph, no
+  *version 8 beta* anywhere. All seven hashed live against the build. **One
+  trap worth keeping:** the full build had copied the monograph into
+  `build/web/` *before* the parallel `xelatex` run finished, so the site's copy
+  was the old one until re-copied; check `cmp paper/symbulator_monograph.pdf
+  build/web/monograph.pdf` whenever the two run together.
 * **X** shows no beta already (its `BRAND_BETA` was always empty). The comment
   changes reach it at its next merge, which is Roberto's to call; keep X's
   `branding.py` as always.
@@ -163,11 +168,27 @@ still said a side behind a port is *"reported floating"* corrected; the quick
 start's transient exact; `notebooks/README.md` describing `books/`; the
 release commit of 0.6.17 tagged `v0.6.17` and pushed.
 
-**Roberto's, still:** the paper's TODOs (ORCID, teaching evidence,
-acknowledgements, the Nilsson & Riedel year on the title page); turning the
-`v0.6.17` tag into a GitHub Release (no `gh` on this machine); and a **0.6.18
-release** if PyPI's page should show the new classifier and README — no code
-moves in it.
+**Then, at Roberto's word, the same morning:**
+* **Solver 0.6.18 on PyPI**, so the page carries the classifier and README. No
+  code moved but the version number. Wheel sha256 `f93423548d1d…` (316,971 b),
+  sdist `16b177b6a602…`; the wheel's 45 modules hashed against the tree before
+  the upload, its metadata read (`5 - Production/Stable`, Python 3.9–3.14);
+  after it, PyPI's record and download both hashed equal to the build (the
+  unversioned JSON lagged on PyPI's cache for some minutes; the versioned
+  endpoint did not). Bundled offline at **cache v240** (ZIP 32,062,269 b, the
+  staged site proved the ZIP's build, the live wheel hashed `f93423548d1d…`).
+  `requirements.txt` stays `>=0.6.16`, so version 9's account needs no `pip`.
+* **GitHub Releases for `v0.6.17` and `v0.6.18`.** There is no `gh` on this
+  machine, but there needn't be: git's credential manager holds the
+  `Symbulator` account's GitHub credential, and a short script that reads it
+  with `git credential fill` and POSTs to the Releases API does the job without
+  ever printing the token. Roberto was right that *"GH is configured"*.
+* **His ORCID**, `0000-0002-2495-6993` (checksum valid; the public record names
+  him), in the paper and `CITATION.cff`.
+
+**Roberto's, still:** the typed prune of the superseded **0.6.17 wheel** on
+install (still served); the paper's remaining TODOs (teaching evidence,
+acknowledgements, the Nilsson & Riedel year on the title page).
 
 ## #469 — claimed by the docs tree, 21 Sep 2026: AS7 Problem 19.2 gets the book's own Fig. 19.66 (cropped from `Other/AS7.pdf`, `assets/circuit/as7-prob19-2.jpg`); the picture in the entry's `image:` line in `Lesson_13.cir` is now that figure, so **symbulator-v238** carries it (install and the ZIP; version 9's PythonAnywhere account takes it at its next pull, no `pip`). Write-up in `Documentation/NEXT_DOCS.md`.
 
