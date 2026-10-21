@@ -58,6 +58,10 @@ The sampler's Solve card lines follow it: *Press Solve equations* where
 the default is what the run wants, *Tick* or *Untick* only where it is
 not (13.9's poles in FD leave it off, 14.6's design in FD ticks it).
 
+## #472 — the Chinese dictionary corrected by Qifan Wang (LdBeth) — **live on install and the ZIP, 21 Oct 2026** (cache v241); version 9's PythonAnywhere account takes it at its next pull, no `pip`
+
+Roberto, 21 Oct 2026: *"My friend LdBeth from China has corrected the Chinese translation."* His file (`Downloads\symbulator-zh.polished.json`) had the same 786 keys as `repos/server/i18n/zh.json`. **17 values changed**, and every `%{…}` placeholder and tag was left intact, which a script checked. What changed: the polite 您 became 你 everywhere (six places, none left), the ASCII ` -- ` became an em dash (three), 以亨利／欧姆**给出** became **表示** in the m223–m228 coupling messages, plus a few rewordings (索取→获取, m731, the exa prefix sentence, the TI-89 credit line, the comma in the install-menu list). Installed as he sent it, then `tools/i18n.py pack` and `check` (ok). `SYMB_I18N_V` moved in both templates. The pipeline ran in the usual order: `build_local.py`, `build_zip.py`, `stage_install_site.py`, then `install` and `zip`. Live `i18n/zh.js` hashes `4e021983…`, the same as the build. The ZIP is 32,062,282 b. He is credited in the version 9 credits as Qifan Wang, the name the version 8 credits use; see #472 in `Documentation/NEXT_DOCS.md`. X is English-only and needs nothing, and its next merge carries the file over by itself.
+
 ## #471 — versions 9 and 8 leave beta — **live everywhere, 1 Oct 2026** (cache v239, then v240 for 0.6.18; `symbulator.pythonanywhere.com` on build `2026-10-01 00:18 UTC` after Roberto's pull, no β served; all PDFs rebuilt and live)
 
 Roberto, 1 Oct 2026: *"let's remove the reference to Beta. This is something
